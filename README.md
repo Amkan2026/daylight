@@ -6,13 +6,13 @@ A small slider for making websites lighter or darker. Pick a level that feels ri
 
 ## Bookmark button
 
-[Open the Daylight setup page](https://amkan2024.github.io/daylight/) and drag **Daylight** to your bookmarks bar. Click that bookmark on a website to open the slider.
+[Download the Daylight setup file](https://github.com/Amkan2024/daylight/releases/latest/download/daylight-bookmark-button.html), open it in Chrome, and drag **Daylight** to your bookmarks bar. Click that bookmark on a website to open the slider.
 
 If the bar is hidden, open a new tab and press **⌘ + Shift + B** on Mac or **Ctrl + Shift + B** on Windows or Linux. Then open a website, click **Daylight**, and move the slider. Chrome’s Google-looking New Tab page blocks bookmark scripts; the actual **google.com** website works.
 
 This version works without Developer mode. Click it again on each new page. It saves settings on the current site in this browser and adjusts the main page. Some protected pages and sites with strict script rules won’t allow bookmarklets.
 
-You can also [download the setup file](https://github.com/Amkan2024/daylight/releases/latest/download/daylight-bookmark-button.html) and open it in Chrome. The copy button gives you the bookmark address if dragging isn’t convenient.
+The setup file’s copy button gives you the bookmark address if dragging isn’t convenient. If you downloaded the whole repository, open `bookmarklet/install.html`.
 
 ## Chrome extension
 
