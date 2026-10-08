@@ -8,9 +8,11 @@ A small slider for making websites lighter or darker. Pick a level that feels ri
 
 [Open the Daylight setup page](https://amkan2024.github.io/daylight/) and drag **Daylight** to your bookmarks bar. Click that bookmark on a website to open the slider.
 
+If the bar is hidden, open a new tab and press **⌘ + Shift + B** on Mac or **Ctrl + Shift + B** on Windows or Linux. Then open a website, click **Daylight**, and move the slider. Chrome’s Google-looking New Tab page blocks bookmark scripts; the actual **google.com** website works.
+
 This version works without Developer mode. Click it again on each new page. It saves settings on the current site in this browser and adjusts the main page. Some protected pages and sites with strict script rules won’t allow bookmarklets.
 
-You can also download the repository and open `bookmarklet/install.html` locally. The copy button gives you the address if dragging isn’t convenient.
+You can also [download the setup file](https://github.com/Amkan2024/daylight/releases/latest/download/daylight-bookmark-button.html) and open it in Chrome. The copy button gives you the bookmark address if dragging isn’t convenient.
 
 ## Chrome extension
 
@@ -29,8 +31,8 @@ If you downloaded the whole repository instead, choose its `extension` folder. L
 - **Light level** goes from Night to Day, with every shade in between.
 - **Warmth** takes the edge off cooler colors.
 - **Original** restores the page. Click it again to bring your palette back.
-- Your choice is saved for each site. **Use on other sites too** makes it the default elsewhere; sites you’ve already adjusted keep their own settings.
-- **Hide button** clears the floating circle. Bring it back from the toolbar popup or press **Alt + Shift + D**.
+- Your choice is saved for each site. In the extension, **Use on other sites too** makes it the default elsewhere; sites you’ve already adjusted keep their own settings.
+- **Hide button** clears the floating circle. Click the bookmark again, use the extension’s toolbar popup, or press **Alt + Shift + D** to bring it back.
 
 ## What to expect
 
@@ -38,7 +40,7 @@ Daylight maps colors in OKLCH, keeps accent hues where possible, and adjusts tex
 
 Chrome blocks extensions on its settings pages, the Web Store and its built-in PDF viewer. Text inside images, canvas drawings and closed shadow roots can’t be recolored this way. Complex gradients or text over photos may need a different slider setting. Use Original if a page looks off.
 
-Everything runs locally. There are no analytics, remote scripts or network requests. Daylight stores only site settings in Chrome’s local extension storage. Its website access lets it read page styling and apply the palette.
+Everything runs locally. There are no analytics, remote scripts or network requests. The extension saves settings in Chrome’s local extension storage. The bookmark button uses the current site’s local storage. Website access lets Daylight read page styling and apply the palette.
 
 ## Update
 
