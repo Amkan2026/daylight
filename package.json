@@ -1,0 +1,16 @@
+{
+  "name": "daylight",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A small slider for making websites lighter or darker.",
+  "scripts": {
+    "test": "node scripts/bookmarklet.cjs && node --test tests/colors.test.cjs && node tests/browser.cjs && node tests/bookmarklet.cjs",
+    "test:colors": "node --test tests/colors.test.cjs",
+    "package": "node scripts/bookmarklet.cjs && node scripts/package.cjs",
+    "build:bookmarklet": "node scripts/bookmarklet.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1",
+    "terser": "^5.51.2"
+  }
+}

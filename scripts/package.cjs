@@ -1,0 +1,10 @@
+const fs = require('node:fs');
+const path = require('node:path');
+const { execFileSync } = require('node:child_process');
+const root = path.resolve(__dirname, '..');
+const version = JSON.parse(fs.readFileSync(path.join(root, 'extension/manifest.json'), 'utf8')).version;
+fs.mkdirSync(path.join(root, 'dist'), { recursive: true });
+const output = path.join(root, `dist/daylight-${version}.zip`);
+if (fs.existsSync(output)) fs.unlinkSync(output);
+execFileSync('zip', ['-q', '-r', output, '.', '-x', '*.DS_Store'], { cwd: path.join(root, 'extension') });
+console.log(output);
