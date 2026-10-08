@@ -18,7 +18,7 @@ The setup file’s copy button gives you the bookmark address if dragging isn’
 
 It’s free. No account, subscription or build step.
 
-1. [Download Daylight](https://github.com/Amkan2024/daylight/releases/latest/download/daylight-1.0.0.zip) and unzip it into a folder you’ll keep.
+1. [Download Daylight](https://github.com/Amkan2024/daylight/releases/latest/download/daylight-1.0.1.zip) and unzip it into a folder you’ll keep.
 2. Open `chrome://extensions` in Chrome.
 3. Turn on **Developer mode** in the top right.
 4. Click **Load unpacked** and choose the unzipped folder containing `manifest.json`.

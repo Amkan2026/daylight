@@ -1,6 +1,16 @@
 (() => {
-  const sun = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg>';
-  const moon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.7 8.7 0 0 1 9.8 3.5 8.8 8.8 0 1 0 20.5 14.2Z"/></svg>';
+  const node = (tag, attributes = {}, ...children) => {
+    const element = ["svg", "circle", "path"].includes(tag) ? document.createElementNS("http://www.w3.org/2000/svg", tag) : document.createElement(tag);
+    if (tag === "button") element.type = "button";
+    for (const [key, value] of Object.entries(attributes)) {
+      if (value === true) element.setAttribute(key, "");
+      else if (value !== false && value != null) element.setAttribute(key, String(value));
+    }
+    for (const child of children.flat()) element.append(typeof child === "string" ? document.createTextNode(child) : child);
+    return element;
+  };
+  const sun = () => node("svg", { viewBox: "0 0 24 24", "aria-hidden": "true" }, node("circle", { cx: 12, cy: 12, r: 4 }), node("path", { d: "M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5" }));
+  const moon = () => node("svg", { viewBox: "0 0 24 24", "aria-hidden": "true" }, node("path", { d: "M20.5 14.2A8.7 8.7 0 0 1 9.8 3.5 8.8 8.8 0 1 0 20.5 14.2Z" }));
   const style = `
     :host{all:initial!important;color-scheme:light!important;font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;font-size:14px!important;line-height:1.4!important}
     *,*::before,*::after{box-sizing:border-box}[hidden]{display:none!important}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid #827756;outline-offset:4px}button{color:inherit}svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
@@ -13,20 +23,21 @@
       this.root = root;
       this.options = options;
       this.settings = DaylightColors.normalize(options.settings);
-      root.innerHTML = `<style>${style}</style><div class="${options.floating ? "floating" : "popup"}">
-        <button class="launcher" title="Daylight · Adjust this page" aria-label="Open Daylight" aria-expanded="false"><span class="mark"></span></button>
-        <section class="panel" role="dialog" aria-label="Daylight settings" ${options.floating ? "hidden" : ""}>
-          <div class="top"><div class="brand"><span class="mark"></span><h1 class="name">Daylight</h1></div><button class="close" aria-label="Close Daylight">×</button></div>
-          <p class="intro">A little darker. A little lighter. Your call.</p>
-          <div class="readout"><div><div class="caption">Light level</div><div class="level"><span class="number">72</span><small>%</small></div></div><div class="palette" aria-label="Current color palette"><span class="swatch"></span><span class="swatch"></span><span class="swatch"></span><span class="swatch"></span></div></div>
-          <div class="slider-row">${moon}<input class="brightness" type="range" min="0" max="100" step="1" aria-label="Light level">${sun}</div>
-          <div class="ends"><span>Darker</span><span>Lighter</span></div>
-          <div class="presets"><button class="preset" data-level="0">Night</button><button class="preset" data-level="62">Soft</button><button class="preset" data-level="100">Day</button></div>
-          <div class="divider"></div><label class="warm-label" for="daylight-warmth">Warmth <span class="warm-value">Balanced</span></label><input id="daylight-warmth" class="warmth" type="range" min="0" max="100" step="1" aria-label="Warmth">
-          <label class="everywhere"><input type="checkbox">Use on other sites too</label>
-          <div class="footer"><button class="original" aria-pressed="true">Original</button><button class="hide">Hide button</button></div>
-          <p class="status" role="status" aria-live="polite">Saved for this site</p>
-        </section></div>`;
+      root.replaceChildren(node("style", {}, style), node("div", { class: options.floating ? "floating" : "popup" },
+        node("button", { class: "launcher", title: "Daylight · Adjust this page", "aria-label": "Open Daylight", "aria-expanded": "false" }, node("span", { class: "mark" })),
+        node("section", { class: "panel", role: "dialog", "aria-label": "Daylight settings", hidden: options.floating },
+          node("div", { class: "top" }, node("div", { class: "brand" }, node("span", { class: "mark" }), node("h1", { class: "name" }, "Daylight")), node("button", { class: "close", "aria-label": "Close Daylight" }, "×")),
+          node("p", { class: "intro" }, "A little darker. A little lighter. Your call."),
+          node("div", { class: "readout" }, node("div", {}, node("div", { class: "caption" }, "Light level"), node("div", { class: "level" }, node("span", { class: "number" }, "72"), node("small", {}, "%"))), node("div", { class: "palette", "aria-label": "Current color palette" }, Array.from({ length: 4 }, () => node("span", { class: "swatch" })))),
+          node("div", { class: "slider-row" }, moon(), node("input", { class: "brightness", type: "range", min: 0, max: 100, step: 1, "aria-label": "Light level" }), sun()),
+          node("div", { class: "ends" }, node("span", {}, "Darker"), node("span", {}, "Lighter")),
+          node("div", { class: "presets" }, [[0, "Night"], [62, "Soft"], [100, "Day"]].map(([level, label]) => node("button", { class: "preset", "data-level": level }, label))),
+          node("div", { class: "divider" }), node("label", { class: "warm-label", for: "daylight-warmth" }, "Warmth ", node("span", { class: "warm-value" }, "Balanced")), node("input", { id: "daylight-warmth", class: "warmth", type: "range", min: 0, max: 100, step: 1, "aria-label": "Warmth" }),
+          node("label", { class: "everywhere" }, node("input", { type: "checkbox" }), "Use on other sites too"),
+          node("div", { class: "footer" }, node("button", { class: "original", "aria-pressed": "true" }, "Original"), node("button", { class: "hide" }, "Hide button")),
+          node("p", { class: "status", role: "status", "aria-live": "polite" }, "Saved for this site")
+        )
+      ));
       this.panel = root.querySelector(".panel");
       this.launcher = root.querySelector(".launcher");
       this.brightness = root.querySelector(".brightness");

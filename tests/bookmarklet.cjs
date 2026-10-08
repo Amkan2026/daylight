@@ -10,6 +10,7 @@ const C = require('../extension/colors.js');
   const fixture = fs.readFileSync(path.join(__dirname, 'fixture.html'), 'utf8');
   const server = http.createServer((req, res) => {
     res.setHeader('Content-Type', 'text/html');
+    if (req.url === '/strict') res.setHeader('Content-Security-Policy', "require-trusted-types-for 'script'; trusted-types 'none'");
     res.end(req.url === '/frame' ? '<p>Embedded content</p>' : fixture);
   });
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
@@ -47,7 +48,25 @@ const C = require('../extension/colors.js');
     const box = await page.locator('daylight-control .panel').boundingBox();
     assert.ok(box.x >= 0 && box.x + box.width <= 375 && box.y >= 0 && box.y + box.height <= 740);
     assert.deepEqual(errors, []);
-    console.log('Bookmark checks passed: slider, persistence, reopening, restore, mobile layout, host Chrome API preserved.');
+    const strict = await browser.newPage();
+    await strict.goto(url + '/strict');
+    assert.equal(await strict.evaluate(() => {
+      try {
+        document.createElement('div').innerHTML = '<span>Check</span>';
+        return false;
+      } catch {
+        return true;
+      }
+    }), true);
+    await strict.evaluate(source);
+    const strictSlider = strict.getByRole('slider', { name: 'Light level', exact: true });
+    await strictSlider.waitFor();
+    await strictSlider.press('Home');
+    const strictDark = await strict.locator('body').evaluate(el => getComputedStyle(el).backgroundColor);
+    await strictSlider.press('End');
+    const strictLight = await strict.locator('body').evaluate(el => getComputedStyle(el).backgroundColor);
+    assert.ok(C.luminance(C.parse(strictLight)) > C.luminance(C.parse(strictDark)) + 0.5);
+    console.log('Bookmark checks passed: slider, persistence, reopening, restore, mobile layout, host Chrome API preserved, strict Trusted Types.');
   } finally {
     if (browser) await browser.close();
     server.close();
