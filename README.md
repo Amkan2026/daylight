@@ -6,7 +6,7 @@ A small slider for making websites lighter or darker. Pick a level that feels ri
 
 ## Bookmark button
 
-[Download the Daylight setup file](https://github.com/Amkan2024/daylight/releases/latest/download/daylight-bookmark-button.html), open it in Chrome, and drag **Daylight** to your bookmarks bar. Click that bookmark on a website to open the slider.
+[Download the Daylight setup file](https://github.com/Amkan2026/daylight/releases/latest/download/daylight-bookmark-button.html), open it in Chrome, and drag **Daylight** to your bookmarks bar. Click that bookmark on a website to open the slider.
 
 If the bar is hidden, open a new tab and press **⌘ + Shift + B** on Mac or **Ctrl + Shift + B** on Windows or Linux. Then open a website, click **Daylight**, and move the slider. Chrome’s Google-looking New Tab page blocks bookmark scripts; the actual **google.com** website works.
 
@@ -18,7 +18,7 @@ The setup file’s copy button gives you the bookmark address if dragging isn’
 
 It’s free. No account, subscription or build step.
 
-1. [Download Daylight](https://github.com/Amkan2024/daylight/releases/latest/download/daylight-1.0.1.zip) and unzip it into a folder you’ll keep.
+1. [Download Daylight](https://github.com/Amkan2026/daylight/releases/latest/download/daylight-1.0.1.zip) and unzip it into a folder you’ll keep.
 2. Open `chrome://extensions` in Chrome.
 3. Turn on **Developer mode** in the top right.
 4. Click **Load unpacked** and choose the unzipped folder containing `manifest.json`.
